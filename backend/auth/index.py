@@ -51,8 +51,8 @@ def handler(event: dict, context) -> dict:
         return {"statusCode": 200, "headers": CORS, "body": ""}
 
     method = event.get("httpMethod", "GET")
-    path = event.get("path", "/")
-    action = path.strip("/").split("/")[-1]
+    qs = event.get("queryStringParameters") or {}
+    action = qs.get("action", "")
 
     # --- REGISTER ---
     if action == "register" and method == "POST":
